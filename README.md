@@ -1,73 +1,149 @@
 # Hamming-Error-Correcting-Code-Simulator
 
-📌 Proje Hakkında
-Bu proje, Hamming Error-Correcting Code (ECC) algoritmasını görsel ve etkileşimli biçimde simüle eden bir masaüstü uygulamasıdır. 8, 16 ve 32 bitlik veriler üzerinde Hamming kodlaması yapılabilmekte; belleğe yazma, yapay hata oluşturma, sendrom hesaplama ve otomatik hata düzeltme adımları adım adım gözlemlenebilmektedir.
+# ◈ Hamming Error-Correcting Code Simülatörü
 
-🎬 Demo Videosu
+> **BLM230 Bilgisayar Mimarisi — Dönem Projesi**  
+> Bursa Teknik Üniversitesi
 
-📺 https://www.youtube.com/watch?v=e1_uvDAfYmw
+![Python](https://img.shields.io/badge/Python-3.10%2B-blue?style=flat-square&logo=python)
+![Tkinter](https://img.shields.io/badge/GUI-Tkinter-informational?style=flat-square)
+![License](https://img.shields.io/badge/Lisans-MIT-green?style=flat-square)
+![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey?style=flat-square)
 
+---
 
-✨ Özellikler
-ÖzellikAçıklama8 / 16 / 32 bit destekÜç farklı veri uzunluğu için tam Hamming kodlamasıOtomatik parity hesabıHer parity bitinin hangi bitleri kapsadığı gösterilirİnteraktif hata enjeksiyonuHerhangi bir bite tıklayarak yapay bit hatası oluşturulurSendrom analiziSendrom değeri hesaplanır ve hatalı bit konumu tespit edilirOtomatik düzeltmeHatalı bit otomatik olarak düzeltilir ve sonuç gösterilirGörsel bit gridParity ve veri bitleri renk kodlarıyla ayrıştırılmış gösterim
+## 📌 Proje Hakkında
 
-🧠 Teorik Arka Plan
-Hamming Kodu Nedir?
-Hamming kodu, 1950'de Richard Hamming tarafından geliştirilen ve tek bit hatalarını tespit edip düzelten (SEC — Single Error Correction) bir hata düzeltme kodudur.
-Parity Bit Sayısının Hesaplanması
-m bitlik bir veri için gereken r parity bit sayısı:
+Bu proje, **Hamming Error-Correcting Code (ECC)** algoritmasını görsel ve etkileşimli biçimde simüle eden bir masaüstü uygulamasıdır. 8, 16 ve 32 bitlik veriler üzerinde Hamming kodlaması yapılabilmekte; belleğe yazma, yapay hata oluşturma, sendrom hesaplama ve otomatik hata düzeltme adımları adım adım gözlemlenebilmektedir.
+
+---
+
+## 🎬 Demo Videosu
+
+> 📺 https://www.youtube.com/watch?v=e1_uvDAfYmw
+
+---
+
+## ✨ Özellikler
+
+| Özellik | Açıklama |
+|---|---|
+| **8 / 16 / 32 bit destek** | Üç farklı veri uzunluğu için tam Hamming kodlaması |
+| **Otomatik parity hesabı** | Her parity bitinin hangi bitleri kapsadığı gösterilir |
+| **İnteraktif hata enjeksiyonu** | Herhangi bir bite tıklayarak yapay bit hatası oluşturulur |
+| **Sendrom analizi** | Sendrom değeri hesaplanır ve hatalı bit konumu tespit edilir |
+| **Otomatik düzeltme** | Hatalı bit otomatik olarak düzeltilir ve sonuç gösterilir |
+| **Görsel bit grid** | Parity ve veri bitleri renk kodlarıyla ayrıştırılmış gösterim |
+
+---
+
+## 🧠 Teorik Arka Plan
+
+### Hamming Kodu Nedir?
+
+Hamming kodu, 1950'de Richard Hamming tarafından geliştirilen ve **tek bit hatalarını tespit edip düzelten (SEC — Single Error Correction)** bir hata düzeltme kodudur.
+
+### Parity Bit Sayısının Hesaplanması
+
+`m` bitlik bir veri için gereken `r` parity bit sayısı:
+
+```
 2^r ≥ m + r + 1
-Veri uzunluğu (m)Parity bitleri (r)Toplam uzunluk84121652132638
-Parity Bitlerinin Yerleşimi
-Parity bitleri, 2'nin kuvveti olan konumlara yerleştirilir: 1, 2, 4, 8, 16, 32, ...
+```
+
+| Veri uzunluğu (m) | Parity bitleri (r) | Toplam uzunluk |
+|:-:|:-:|:-:|
+| 8 | 4 | 12 |
+| 16 | 5 | 21 |
+| 32 | 6 | 38 |
+
+### Parity Bitlerinin Yerleşimi
+
+Parity bitleri, 2'nin kuvveti olan konumlara yerleştirilir: **1, 2, 4, 8, 16, 32, ...**  
 Veri bitleri geri kalan konumlara sırayla doldurulur.
+
+```
 Konum:   1   2   3   4   5   6   7   8   9  10  11  12
 Tür:    [P1][P2][D1][P4][D2][D3][D4][P8][D5][D6][D7][D8]
-Sendrom ve Hata Tespiti
-Bellekten okunan kelime üzerinde parity bitleri yeniden hesaplanır. XOR işlemleri sonucu elde edilen sendrom değeri, doğrudan hatalı bitin konum numarasını verir:
+```
+
+### Sendrom ve Hata Tespiti
+
+Bellekten okunan kelime üzerinde parity bitleri yeniden hesaplanır. XOR işlemleri sonucu elde edilen **sendrom değeri**, doğrudan hatalı bitin konum numarasını verir:
+
+```
 Sendrom = 0      → Hata yok
 Sendrom = N (≠0) → N. bit hatalı
+```
 
-🚀 Kurulum ve Çalıştırma
-Gereksinimler
-
-Python 3.10 veya üzeri
-tkinter (Python ile birlikte gelir — ayrıca kurulum gerekmez)
-
-Not: Linux sistemlerde tkinter ayrıca kurulması gerekebilir:
-bashsudo apt-get install python3-tk
+---
 
 
-🖥️ Kullanım Kılavuzu
+### Gereksinimler
+
+- Python **3.10** veya üzeri
+- `tkinter` (Python ile birlikte gelir — ayrıca kurulum gerekmez)
+
+
+> **Not:** Linux sistemlerde tkinter ayrıca kurulması gerekebilir:
+> ```bash
+> sudo apt-get install python3-tk
+> ```
+
+---
+
+## 🖥️ Kullanım Kılavuzu
+
 Uygulama 4 adımdan oluşur:
+
+```
 [ 1 ] Veri Girişi  →  [ 2 ] Kodlama  →  [ 3 ] Hata Ekleme  →  [ 4 ] Sendrom & Düzeltme
-Adım 1 — Veri girişi:
+```
+
+**Adım 1 — Veri girişi:**  
 Bit uzunluğunu seçin (8/16/32). İkili veriyi elle girin ya da "Rastgele" butonuyla otomatik oluşturun.
-Adım 2 — Kodlama:
+
+**Adım 2 — Kodlama:**  
 "Kodla" butonuna basın. Parity bitleri hesaplanır, kod kelimesi ve her parity bitinin kapsam tablosu gösterilir.
-Adım 3 — Hata enjeksiyonu:
+
+**Adım 3 — Hata enjeksiyonu:**  
 Görsel bit grid üzerinde herhangi bir bite tıklayarak bit değerini tersine çevirin (yapay hata). Aynı bite tekrar tıklayarak hatayı geri alabilirsiniz.
-Adım 4 — Tespit & Düzeltme:
+
+**Adım 4 — Tespit & Düzeltme:**  
 "Sendromu Hesapla" butonuna basın. Sendrom bitleri, sendrom değeri, hatalı bit konumu ve düzeltilmiş kod kelimesi gösterilir.
 
-📁 Dosya Yapısı
-hamming-ecc-simulator/
-│
-├── hamming_simulator.py   # Ana uygulama (GUI + core logic)
-└── README.md              # Bu dosya
 
-⚙️ Teknik Detaylar
-Temel Fonksiyonlar
-pythoncalc_parity_bit_count(m: int) -> int
-2^r ≥ m + r + 1 koşulunu sağlayan minimum r değerini döner.
-pythonencode(data_bits: list[int]) -> list[int]
+---
+
+## ⚙️ Teknik Detaylar
+
+### Temel Fonksiyonlar
+
+```python
+calc_parity_bit_count(m: int) -> int
+```
+`2^r ≥ m + r + 1` koşulunu sağlayan minimum `r` değerini döner.
+
+```python
+encode(data_bits: list[int]) -> list[int]
+```
 Veri bitlerini alır, parity bitlerini hesaplar ve tam kod kelimesini 1-indexed liste olarak döner.
-pythoncalculate_syndrome(word: list[int]) -> tuple[int, list[dict]]
-Kod kelimesinin sendromunu hesaplar. (syndrome_value, parity_details) döner.
-pythoncorrect(word: list[int], syndrome: int) -> list[int]
+
+```python
+calculate_syndrome(word: list[int]) -> tuple[int, list[dict]]
+```
+Kod kelimesinin sendromunu hesaplar. `(syndrome_value, parity_details)` döner.
+
+```python
+correct(word: list[int], syndrome: int) -> list[int]
+```
 Sendromun gösterdiği konumdaki biti tersine çevirerek düzeltilmiş kelimeyi döner.
 
-📋 Örnek Çalışma
+---
+
+## 📋 Örnek Çalışma
+
+```
 Veri (8 bit):     1 0 1 1 0 0 1 1
 Parity bit sayısı: 4
 Toplam uzunluk:   12 bit
@@ -87,8 +163,13 @@ Sendrom hesabı:
 
   Sendrom = 1 + 2 + 4 = 7  →  Bit 7 hatalı ✓
   Düzeltme: Bit 7 → 0 → 1
+```
 
-🔬 Algoritma Akışı
+---
+
+## 🔬 Algoritma Akışı
+
+```
 Veri Girişi (m bit)
        │
        ▼
@@ -118,8 +199,14 @@ Sendromu Hesapla (XOR)
   ▼         ▼
 S=0       S≠0
 Hata Yok  Bit S'i Düzelt
+```
 
-📄 Lisans
+---
+
+## 📄 Lisans
+
 Bu proje MIT lisansı ile dağıtılmaktadır.
 
-BLM230 Bilgisayar Mimarisi — Bursa Teknik Üniversitesi
+---
+
+*BLM230 Bilgisayar Mimarisi — Bursa Teknik Üniversitesi*
